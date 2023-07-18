@@ -1,0 +1,35 @@
+{
+	"name": "lambda_jupyter_vs",
+	"build": {
+		"dockerfile": "lambda_container_image\\Dockerfile",
+		//lambda_container_image/Dockerfile - Mac/Linux
+		//lambda_container_image\\Dockerfile - Windows
+	},
+	"runArgs": [
+		"--name=lambda_jupyter_vs"
+	],
+	"mounts": [
+		"type=bind,source=C:\\Users\\J Rolski\\.aws,target=/workspaces/.aws,consistency=cached"
+		//${localEnv:HOME}/.aws - Mac/Linux
+		//C:\\Users\\username\\.aws - Windows
+	],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"ms-toolsai.jupyter"
+			]
+		}
+	},
+	"workspaceFolder": "/workspaces/digital-dashboard-jupyter",
+	"containerEnv": {
+		"AWS_CONFIG_FILE": "/workspaces/.aws/config",
+		"AWS_SHARED_CREDENTIALS_FILE": "/workspaces/.aws/credentials",
+		"AWS_PROFILE": "default",
+		"AWS_REGION": "eu-west-2",
+		"PYTHONPATH": "/var/task"
+	},
+	"postCreateCommand": "pip install ipykernel"
+	//pip install 'ipykernel<=6.8.0,>=6.4.0' - ARN
+	//pip install ipykernel - AMD
+}
